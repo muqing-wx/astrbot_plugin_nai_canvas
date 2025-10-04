@@ -1,0 +1,176 @@
+{
+  "api_channel": {
+    "description": "API 渠道",
+    "type": "string",
+    "hint": "选择“官方”将使用POST请求。选择“第三方代理”将使用GET请求，适用于类似 std.loliyc.com 的服务。",
+    "options": [
+      "官方 (official)",
+      "第三方代理 (third_party)"
+    ],
+    "default": "官方 (official)"
+  },
+  "nai_api_keys": {
+    "description": "NovelAI API 密钥列表",
+    "type": "list",
+    "hint": "可以添加多个密钥。当一个密钥失效时，插件会自动尝试下一个。",
+    "items": {
+      "type": "string",
+      "description": "NovelAI API 密钥 (Token)"
+    },
+    "default": []
+  },
+  "third_party_api_endpoint": {
+    "description": "第三方 API 地址 (URL)",
+    "type": "string",
+    "hint": "当“API 渠道”选择“第三方代理”时，将使用此地址。例如: https://std.loliyc.com/generate",
+    "default": "https://std.loliyc.com/generate"
+  },
+  "third_party_disable_cache": {
+    "description": "禁用第三方API缓存 (推荐开启)",
+    "type": "bool",
+    "hint": "开启后，每次随机种子都会生成新图，但可能稍慢。关闭后，重复的提示词会返回旧图，速度快但无法随机。默认开启。",
+    "default": true
+  },
+  "save_images_locally": {
+    "description": "是否在本地保存生成的图片",
+    "type": "bool",
+    "hint": "开启后，生成的图片将保存在插件目录的 temp_images 文件夹中且不会被删除。关闭则在发送后自动删除。",
+    "default": false
+  },
+  "enable_nsfw_by_default": {
+    "description": "默认生成 NSFW 内容",
+    "type": "bool",
+    "hint": "开启后，如果正向提示词中未包含'nsfw'，则自动添加。关闭后，如果正向提示词中包含'nsfw'，则自动移除并添加到反向提示词。",
+    "default": false
+  },
+  "model": {
+    "description": "模型 (Model)",
+    "type": "string",
+    "hint": "选择您想使用的 NovelAI 绘图模型。",
+    "options": [
+      "nai-diffusion-3",
+      "nai-diffusion-furry-3",
+      "nai-diffusion-4-full",
+      "nai-diffusion-4-curated-preview",
+      "nai-diffusion-4-5-full",
+      "nai-diffusion-4-5-curated",
+      "nai-diffusion"
+    ],
+    "default": "nai-diffusion-4-5-full"
+  },
+  "sampler": {
+    "description": "采样 (Sampler)",
+    "type": "string",
+    "hint": "选择用于生成图像的采样算法。",
+    "options": [
+      "k_euler_ancestral",
+      "k_euler",
+      "k_dpmpp_2m",
+      "k_dpmpp_sde",
+      "k_dpmpp_2s_ancestral",
+      "k_dpm_fast",
+      "ddim"
+    ],
+    "default": "k_dpmpp_2m"
+  },
+  "noise_schedule": {
+    "description": "噪点调度 (Noise Schedule)",
+    "type": "string",
+    "hint": "选择噪声调度算法。",
+    "options": [
+      "karras",
+      "native",
+      "exponential",
+      "polyexponential"
+    ],
+    "default": "karras"
+  },
+  "resolution_preset": {
+    "description": "预设尺寸",
+    "type": "string",
+    "hint": "此下拉菜单决定最终使用的图片尺寸。",
+    "options": [
+      "竖图 (832x1216)",
+      "横图 (1216x832)",
+      "方图 (1024x1024)",
+      "自定义 (custom)"
+    ],
+    "default": "竖图 (832x1216)"
+  },
+  "custom_width": {
+    "description": "宽度",
+    "type": "int",
+    "hint": "仅当“预设尺寸”选择“自定义”时，此值才会生效。",
+    "default": 1920
+  },
+  "custom_height": {
+    "description": "高度",
+    "type": "int",
+    "hint": "仅当“预设尺寸”选择“自定义”时，此值才会生效。",
+    "default": 1088
+  },
+  "steps": {
+    "description": "步数 (Steps)",
+    "type": "int",
+    "hint": "推荐值为 28-50。",
+    "default": 28
+  },
+  "scale": {
+    "description": "提示词引导值 (CFG)",
+    "type": "float",
+    "hint": "数值越高，画面越接近你的描述，但可能更僵硬。推荐值为 5-7。",
+    "default": 5.0
+  },
+  "unclip_guidance_scale": {
+    "description": "缩放引导值 (Unclip Guidance Scale)",
+    "type": "float",
+    "hint": "NovelAI V3模型新增参数，建议值为 0。过高可能导致图像失真。",
+    "default": 0.0
+  },
+  "seed": {
+    "description": "种子 (Seed)",
+    "type": "int",
+    "hint": "用于复现图像。留空或填 0 表示每次随机。",
+    "default": 0
+  },
+  "smea": {
+    "description": "启用 SMEA",
+    "type": "bool",
+    "hint": "SMEA (Scaled Mean Error Attention) 是一种采样器优化。",
+    "default": false
+  },
+  "smea_dyn": {
+    "description": "启用 SMEA DYN",
+    "type": "bool",
+    "hint": "SMEA DYN 是 SMEA 的动态版本。",
+    "default": false
+  },
+  "enable_prompt_enhancement": {
+    "description": "是否启用提示词增强 (LLM)",
+    "type": "bool",
+    "hint": "开启后，/nai生图 和 /nai画师串 命令将使用 LLM 进行智能处理。",
+    "default": true
+  },
+  "llm_api_keys": {
+    "description": "LLM API 密钥列表 (用于提示词增强)",
+    "type": "list",
+    "hint": "例如：sk-xxxxxx (SiliconFlow 或 OpenAI 兼容 API Key)",
+    "items": {
+      "type": "string",
+      "description": "API 密钥"
+    },
+    "default": []
+  },
+  "llm_api_base_url": {
+    "description": "LLM API 基础 URL (兼容 OpenAI 风格)",
+    "type": "string",
+    "hint": "例如：https://api.siliconflow.cn/v1 或 https://api.openai.com/v1",
+    "default": "https://api.siliconflow.cn/v1"
+  },
+  "llm_model_name": {
+    "description": "用于提示词处理的 LLM 模型名称",
+    "type": "string",
+    "hint": "例如：Qwen/Qwen2-7B-Instruct",
+    "default": "Qwen/Qwen2-7B-Instruct"
+  }
+}
