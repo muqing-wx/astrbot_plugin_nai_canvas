@@ -20,7 +20,7 @@ from astrbot.api.star import Star, register
 @register("astrbot_plugin_nai_canvas", "沐沐沐倾", "NovelAI 智能绘图", "1.0.0")
 class NAICanvas(Star):
     """
-    基于 NovelAI API 的智能绘图插件，提供丰富的参数自定义选项，让您轻松创作高质量AI绘画作品。
+    基于 NovelAI API 的智能绘图插件，提供丰富的参数自定义选项，让你轻松创作高质量AI绘画作品。
     """
     # --- 内置LLM提示词模板 ---
     LLM_UNIFIED_JUDGEMENT_TEMPLATE = textwrap.dedent("""
